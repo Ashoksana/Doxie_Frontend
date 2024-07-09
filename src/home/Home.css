@@ -1,0 +1,32 @@
+.Home_body p {
+  color: #2d2d2d;
+  text-align: center;
+  font-family: Inter;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+}
+.Home_body {
+  height: 90vh;
+}
+.card_discription_container {
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 8px;
+}
+
+.card_container_home {
+  width: 17rem;
+}
+
+@media screen and (max-width: 700px) {
+  .Home_body {
+    height: 100%;
+    margin: auto;
+    margin-top: 20px;
+  }
+  .card_container_home {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+  }
+}

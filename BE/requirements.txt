@@ -1,0 +1,6 @@
+Flask
+FastApi
+Pymongo
+flask_cors
+faker
+werkzeug
