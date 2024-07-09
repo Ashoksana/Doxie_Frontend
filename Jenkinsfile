@@ -14,9 +14,13 @@ pipeline {
             steps {
                 script {
                     if (!dockerImageExists(DOCKER_HUB_USERNAME, FRONTEND_IMAGE, 'latest')) {
-                        docker.build(FRONTEND_IMAGE, './frontend').push('latest')
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            docker.build(FRONTEND_IMAGE, './frontend').push('latest')
+                        }
                     } else {
-                        sh "docker pull ${DOCKER_HUB_USERNAME}/${FRONTEND_IMAGE}:latest"
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            sh "docker pull ${DOCKER_HUB_USERNAME}/${FRONTEND_IMAGE}:latest"
+                        }
                     }
                 }
             }
@@ -26,9 +30,13 @@ pipeline {
             steps {
                 script {
                     if (!dockerImageExists(DOCKER_HUB_USERNAME, BACKEND_IMAGE, 'latest')) {
-                        docker.build(BACKEND_IMAGE, './backend').push('latest')
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            docker.build(BACKEND_IMAGE, './backend').push('latest')
+                        }
                     } else {
-                        sh "docker pull ${DOCKER_HUB_USERNAME}/${BACKEND_IMAGE}:latest"
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            sh "docker pull ${DOCKER_HUB_USERNAME}/${BACKEND_IMAGE}:latest"
+                        }
                     }
                 }
             }
@@ -38,9 +46,13 @@ pipeline {
             steps {
                 script {
                     if (!dockerImageExists(DOCKER_HUB_USERNAME, DATABASE_IMAGE, 'latest')) {
-                        docker.build(DATABASE_IMAGE, './database').push('latest')
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            docker.build(DATABASE_IMAGE, './database').push('latest')
+                        }
                     } else {
-                        sh "docker pull ${DATABASE_IMAGE}:latest"
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            sh "docker pull ${DATABASE_IMAGE}:latest"
+                        }
                     }
                 }
             }
@@ -58,7 +70,9 @@ pipeline {
 
     post {
         always {
-            cleanWs()
+            script {
+                cleanWs()
+            }
         }
     }
 }
