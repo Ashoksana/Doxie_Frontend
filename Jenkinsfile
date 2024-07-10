@@ -10,6 +10,16 @@ pipeline {
     }
 
     stages {
+        stage('Test Credentials') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'doxie', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        echo "Username: ${USERNAME}"
+                        echo "Password: ${PASSWORD}"
+                    }
+                }
+            }
+        }
         stage('Build or Pull Frontend') {
             steps {
                 script {
