@@ -71,7 +71,8 @@ pipeline {
     post {
         always {
             node {
-                
+                echo 'Cleaning up workspace...'
+                deleteDir() // Delete workspace to ensure it's clean for the next build
             }
         }
     }
