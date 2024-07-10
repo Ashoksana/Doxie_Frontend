@@ -13,15 +13,13 @@ pipeline {
         stage('Build or Pull Frontend') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'doxie')]) {
-                        if (!dockerImageExists(DOCKER_HUB_USERNAME, FRONTEND_IMAGE, 'latest')) {
-                            docker.withRegistry('https://index.docker.io/v1/', "$DOCKER_HUB_USERNAME") {
-                                docker.build(FRONTEND_IMAGE, './frontend').push('latest')
-                            }
-                        } else {
-                            docker.withRegistry('https://index.docker.io/v1/', "$DOCKER_HUB_USERNAME") {
-                                sh "docker pull ${DOCKER_HUB_USERNAME}/${FRONTEND_IMAGE}:latest"
-                            }
+                    if (!dockerImageExists(DOCKER_HUB_USERNAME, FRONTEND_IMAGE, 'latest')) {
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            docker.build(FRONTEND_IMAGE, './frontend').push('latest')
+                        }
+                    } else {
+                        docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                            sh "docker pull ${DOCKER_HUB_USERNAME}/${FRONTEND_IMAGE}:latest"
                         }
                     }
                 }
