@@ -16,7 +16,7 @@ services:
       MONGO_URI: mongodb://database:27017
 
   database:
-    image: jp0411/database:latest
+    image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
