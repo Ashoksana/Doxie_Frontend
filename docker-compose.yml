@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   frontend:
-    image: fe
+    image: ashoksanareddy/doxie_fe
     container_name: fe
     ports:
       - "5173:5173"
 
   backend:
-    image: be
+    image: ashoksanareddy/doxie_fe
     container_name: be
     ports:
       - "5001:5000"
